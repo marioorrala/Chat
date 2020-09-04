@@ -1,4 +1,5 @@
 const http = require('http');
+const path = require('path')
 
 const express = require('express');
 const socketio = require('socket.io');
@@ -7,17 +8,20 @@ const app = express();
 const server = http.createServer(app);
 const io = socketio.listen(server);
 
+//confirguracion
+ app.set('port', process.env.PORT || 3000)
 
-io.on('connection', socket => {
-    console.log('new user connected');
-})
+
+require('./sockets')(io);
+
+
 
 //static files 
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 
 //inicia el server
-server.listen(4000, () => {
-    console.log('server on port 4000');
+server.listen(app.get('port'),() => {
+    console.log('server on port' ,app.get('port'));
 })
 
