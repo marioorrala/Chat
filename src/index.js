@@ -9,7 +9,7 @@ const server = http.createServer(app);
 const io = socketio.listen(server);
 
 //confirguracion
- app.set('port', process.env.PORT || 3000)
+ app.set('port', process.env.PORT || 4000)
 
 
 require('./sockets')(io);
